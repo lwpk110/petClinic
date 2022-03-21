@@ -1,0 +1,6 @@
+database: h2
+spring:
+  sql:
+    init:
+      data-locations: classpath*:db/${database}/data.sql
+      schema-locations: classpath*:db/${database}/schema.sql

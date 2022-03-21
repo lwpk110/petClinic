@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    driver-class-name: ${datasource.driver-class-name:com.mysql.cj.jdbc.Driver}
+    url: ${datasource.url:jdbc:mysql://192.168.0.101:3316/tendata_petclinic?autoReconnect=true&useUnicode=true&characterEncoding=UTF8&serverTimezone=Asia/Shanghai&useSSL=false}
+    username: ${datasource.username:root}
+    password: ${datasource.password:111111}
+  jpa:
+#    database-platform: org.hibernate.dialect.MySQL5Dialect   # 默认myisam 引擎
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+  flyway:
+    locations: classpath:db/mysql/migration
+    enabled: false
+

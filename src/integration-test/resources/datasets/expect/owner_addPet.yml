@@ -1,0 +1,40 @@
+owners:
+  - id: 1
+    first_name: 张
+    last_name: 翠山
+    address: 严中路374路
+    city: 上海
+    telephone: 123456
+    deleted: 0
+  - id: 2
+    first_name: 李
+    last_name: 元霸
+    address: 浦东南路58号
+    city: 上海
+    telephone: 9999
+    deleted: 0
+pets:
+  - id: 1
+    name: 泰迪狗1号
+    birth_date: 2022-02-01
+    type_id: 1
+    owner_id: 1
+  - id: 2
+    name: 美短1号
+    birth_date: 2022-01-01
+    type_id: 2
+    owner_id: 1
+  - id: 3
+    name: 加菲猫1号
+    birth_date: 2022-01-02
+    type_id: 2
+    owner_id: 2
+  - id: 4
+    name: 加菲猫2号
+    type_id: 2
+    owner_id: 1
+pet_types:
+  - id: 1
+    name: 狗
+  - id: 2
+    name: 猫

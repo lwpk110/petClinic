@@ -1,0 +1,6 @@
+visits:
+  - id: 1
+    visit_date: 2022-02-24
+    description: update 描述
+    pet_id: 1
+    vet_id: 1

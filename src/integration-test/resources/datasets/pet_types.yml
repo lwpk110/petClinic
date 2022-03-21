@@ -1,0 +1,5 @@
+pet_types:
+  - id: 1
+    name: 狗
+  - id: 2
+    name: 猫

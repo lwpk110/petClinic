@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+logging:
+  file:
+    path: logs/
+  level:
+    root: INFO
+
+spring:
+  profiles.active: mysql
+  messages:
+    basename: messages
+    fallback-to-system-locale: false
+  security:
+    user:
+      name: admin
+      password: admin
+  datasource:
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 30
+      idle-timeout: 30000
+  jpa:
+    open-in-view: true
+    show-sql: true
+    properties:
+      jadira.usertype.autoRegisterUserTypes: true
+      jadira.usertype.databaseZone: jvm
+      jadira.usertype.javaZone: jvm
+    hibernate:
+      naming:
+        implicit-strategy: cn.tendata.samples.petclinic.data.jpa.config.CustomImplicitNamingStrategy
+      ddl-auto: update
+      use-new-id-generator-mappings: false
+  thymeleaf:
+    mode: HTML
+  web:
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 12h
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

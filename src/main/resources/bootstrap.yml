@@ -1,0 +1,6 @@
+info:
+  component: tendata smaple - petclinic
+
+spring:
+  application:
+    name: tendata-petcilinic-sample

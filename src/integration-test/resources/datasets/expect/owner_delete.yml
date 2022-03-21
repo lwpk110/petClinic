@@ -1,0 +1,15 @@
+owners:
+  - id: 1
+    first_name: 张
+    last_name: 翠山
+    address: 严中路374路
+    city: 上海
+    telephone: 123456
+    deleted: 0
+  - id: 2
+    first_name: 李
+    last_name: 元霸
+    address: 浦东南路58号
+    city: 上海
+    telephone: 9999
+    deleted: 1

@@ -1,0 +1,11 @@
+pets:
+  - id: 2
+    name: 美短1号
+    birth_date: 2022-01-01
+    type_id: 2
+    owner_id: 1
+  - id: 3
+    name: 加菲猫1号
+    birth_date: 2022-01-02
+    type_id: 2
+    owner_id: 2

@@ -1,0 +1,7 @@
+vet_specialties:
+  - vet_id: 1
+    specialty_id: 1
+  - vet_id: 2
+    specialty_id: 1
+  - vet_id: 1
+    specialty_id: 2
