@@ -2,11 +2,12 @@ package cn.tendata.samples.petclinic.data.jpa.domain;
 
 import cn.tendata.samples.petclinic.data.jpa.jackson.DataView;
 import com.fasterxml.jackson.annotation.JsonView;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+
+import javax.persistence.MappedSuperclass;
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * Interface for auditable entities. Allows storing and retrieving creation and modification
@@ -22,9 +23,9 @@ public abstract class AbstractEntityAuditable<ID extends Serializable> extends A
 	private static final long serialVersionUID = 7479587631743834284L;
 
 	@JsonView(DataView.Audit.class)
-	private LocalDateTime createdDate;
+	private Date createdDate;
 	@JsonView(DataView.Audit.class)
-	private LocalDateTime lastModifiedDate;
+	private Date lastModifiedDate;
 
 	/**
 	 * Returns the creation date of the entity.
@@ -32,7 +33,7 @@ public abstract class AbstractEntityAuditable<ID extends Serializable> extends A
 	 * @return the createdDate
 	 */
 	@CreatedDate
-	public LocalDateTime getCreatedDate() {
+	public Date getCreatedDate() {
 		return createdDate;
 	}
 
@@ -41,7 +42,7 @@ public abstract class AbstractEntityAuditable<ID extends Serializable> extends A
 	 *
 	 * @param createdDate the creation date to set
 	 */
-	public void setCreatedDate(final LocalDateTime createdDate) {
+	public void setCreatedDate(final Date createdDate) {
 		this.createdDate = createdDate;
 	}
 
@@ -51,7 +52,7 @@ public abstract class AbstractEntityAuditable<ID extends Serializable> extends A
 	 * @return the lastModifiedDate
 	 */
 	@LastModifiedDate
-	public LocalDateTime getLastModifiedDate() {
+	public Date getLastModifiedDate() {
 		return lastModifiedDate;
 	}
 
@@ -60,7 +61,7 @@ public abstract class AbstractEntityAuditable<ID extends Serializable> extends A
 	 *
 	 * @param lastModifiedDate the date of the last modification to set
 	 */
-	public void setLastModifiedDate(final LocalDateTime lastModifiedDate) {
+	public void setLastModifiedDate(final Date lastModifiedDate) {
 		this.lastModifiedDate = lastModifiedDate;
 	}
 }

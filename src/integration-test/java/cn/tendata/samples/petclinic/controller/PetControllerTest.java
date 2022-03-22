@@ -142,7 +142,7 @@ class PetControllerTest extends MockMvcTestSupport {
 			.andExpect(MockMvcResultMatchers.status().isOk())
 			.andReturn();
 
-		visitRepository.findById(1)
+//		visitRepository.findById(1)
 	}
 
 	@DataSet(value = {"owners.yml", "pets.yml", "pet_types.yml", "vet.yml", "specialty.yml",

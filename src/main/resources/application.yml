@@ -9,6 +9,11 @@ logging:
 
 spring:
   profiles.active: mysql
+  jackson:
+    serialization:
+      WRITE_DATES_WITH_ZONE_ID: true
+    date-format: com.fasterxml.jackson.databind.util.StdDateFormat
+    time-zone: Asia/Shanghai
   messages:
     basename: messages
     fallback-to-system-locale: false
