@@ -1,0 +1,18 @@
+:!version-label:
+:toc: left
+// - image|font|text
+// 图片目录，不设置 采用和文档一样的相对路劲
+//:imagesdir: images
+:encoding: utf-8
+:lang: 中文
+:numbered: 编号
+:icons: font
+:toc-title: 目录
+:experimental: true
+:toclevels: 4
+:tabsize: 4
+:sectanchors:
+:sectnums:
+//:docinfo: shared,private-footer
+:docinfo: shared
+:docinfodir: assets/meta

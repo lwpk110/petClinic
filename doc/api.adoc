@@ -1,0 +1,250 @@
+include::attributes.adoc[]
+
+= swagger api3 指南
+
+== 版本
+
+OpenAPI 规范使用 Semantic Versioning 2.0.0 (semver) 进行版本控制，并遵循 semver 规范。
+
+semver 的 `major.minor` 部分（例如 3.0）应指定 OAS 功能集。通常，`.patch` 版本解决的是本文档中的错误，而不是功能集。支持 OAS 3.0 的工具
+应该与 所有 OAS 3.0.* 版本兼容。工具不应考虑在 `.patch` 版本中。
+
+OpenAPI 规范的每个新次要版本（ `minor` ）应允许在同一主要版本中对任何以前的规范次要版本有效的 OpenAPI 文档更新到具有等效语义的新规范版本。
+这样的更新必须只需要将 openapi 属性更改为新的次要版本。
+
+例如，一个有效的 OpenAPI 3.0.2 文档，在将其 openapi 属性更改为 3.1.0 后，应该是一个有效的 OpenAPI 3.1.0 文档，在语义上等同于原始
+OpenAPI 3.0.2 文档。必须编写新的 OpenAPI 规范的次要版本以确保这种形式的向后兼容性。
+
+与 OAS 3.*.* 兼容的 OpenAPI 文档包含一个必需的 openapi 字段，该字段指定它使用的 OAS 的语义版本。 （OAS 2.0 文档包含一个名为 swagger
+的顶级版本字段和值“2.0”。）
+
+== 数据类型
+|====
+|type	|format	 |Comments
+
+|integer
+|int32
+| integer 类型
+
+|integer
+|int64
+| Long类型
+
+|number
+|float
+
+|number
+|double
+
+|string
+
+|string
+|byte
+|base64 encoded characters
+
+|string
+|binary
+|二进制
+
+|boolean
+
+|string
+|date
+| full-date - RFC3339
+
+|string
+|date-time
+| date-time - RFC3339
+
+|string
+|password
+|隐藏密码
+|====
+
+== 组件
+
+
+|===
+|组件名称 |类型 |备注
+
+|openapi
+|string
+| **REQUIRED**. 这个字符串必须是 OpenAPI 文档使用的 OpenAPI 规范版本的语义版本号
+
+|info
+|Info Object
+|**REQUIRED** .  本api文档描述信息
+
+|servers
+|[Server Object]
+|api 服务器列表
+
+|paths
+|Paths Object
+|**REQUIRED**. 具体api的 path,参数，返回等配置
+
+|components
+|Components Object
+|一些公用组件
+
+|security
+|[Security Requirement Object]
+| 安全认证相关
+
+|tags
+|[Tag Object]
+|tag 标签，可以使用解析工具反映他们的顺序，必须是唯一的
+
+|externalDocs
+|External Documentation Object
+|额外的外部文档
+
+|===
+
+
+示例::
++
+[source,yml]
+----
+openapi: 3.0.0                                                                  #<.>
+info:                                                                           #<.>
+  description: |
+    This is a sample Petstore server.  You can find                             #<.>
+  version: "1.0.0"                                                              #<.>
+  title: Swagger Petstore                                                       #<.>
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/bonduell/petpetpet/1.0.0
+  - url: 'https://petstore.swagger.io/v2'
+tags:                                                                           #<.>
+  - name: pet
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: store
+    description: Access to Petstore orders
+paths:                                                                          #<.>
+  /pet:                                                                         #<.>
+    post:
+      tags:
+        - pet                                                                   #<.>
+      summary: Add a new pet to the store
+      operationId: addPet
+      responses:                                                                #<.>
+        '405':
+          description: Invalid input
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+      requestBody:                                                              #<.>
+        $ref: '#/components/requestBodies/Pet'                                  #<.>
+    put:
+      tags:
+        - pet
+      summary: Update an existing pet
+      operationId: updatePet
+      responses:
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+      security:
+        - petstore_auth:
+            - 'write:pets'
+            - 'read:pets'
+      requestBody:
+        $ref: '#/components/requestBodies/Pet'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:                                                                 #<.>
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        petId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int32
+        shipDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: Order Status
+          enum:
+            - placed
+            - approved
+            - delivered
+        complete:
+          type: boolean
+          default: false
+      xml:
+        name: Order
+    ApiResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        type:
+          type: string
+        message:
+          type: string
+  requestBodies:
+    Pet:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Pet'
+      description: Pet object that needs to be added to the store
+      required: true
+  securitySchemes:
+    petstore_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+          scopes:
+            'write:pets': modify pets in your account
+            'read:pets': read your pets
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+----
+<.> 指定swagger api 规范版本
+<.> api信息对象；
+<.> api文档描述；
+<.> api文档版本
+<.> 标题
+<.> api 标签组
+<.> api路由列表
+<.> 具体路由path
+<.> 具体路由分属标签组
+<.> api返回对象
+<.> api 请求body对象；
+<.> 对象应用位置
+<.> 公共组件列表
+
+//== 编写指南
+
+

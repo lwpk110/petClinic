@@ -1,0 +1,267 @@
+openapi: '3.0.1'
+info:
+  title: 'tendata 宠物医院'
+  version: 1.0.0
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/tendata/tendata-petclinic/1.0.0
+  - url: http://localhost:8080/api
+    description: Development server
+  - url: https://localhost:8080/api
+    description: Development server with TLS Profile
+tags:
+  - name: pet
+    description: 宠物api
+    externalDocs:
+      description: 额外资料参考
+      url: http://swagger.io
+  - name: owner
+    description: 宠物主人api
+  - name: pet-type
+    description: 宠物类型api
+    externalDocs:
+      description: 额外资料参考
+      url: http://swagger.io
+  - name: vet
+    description: 宠物医师api
+    externalDocs:
+      description: 额外资料参考
+      url: http://swagger.io
+paths:
+  /owners:
+    get:
+      tags:
+        - owner
+      summary: 宠物主人分页
+      description: 宠物主人分页查询
+      operationId: pageOwners
+      parameters:
+        - name: firstName
+          in: query
+          description: 姓
+          required: false
+          explode: true
+          schema:
+            type: string
+        - name: lastName
+          in: query
+          description: 名字
+          required: false
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 宠物分页返回分页对象
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagePet'
+        '400':
+          description: 参数传入错误
+        '500':
+  /pets:
+    get:
+      tags:
+        - pet
+      summary: 宠物分页
+      description: 通过参数 宠物类型，宠物名称进行记录分页查询
+      operationId: pagePets
+      parameters:
+        - name: typeId
+          in: query
+          description: 宠物类型id
+          required: false
+          explode: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: 宠物分页返回分页对象
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagePet'
+        '400':
+          description: 参数传入错误
+        '500':
+          description: 服务器内部错误
+  /pets/{id}:
+    get:
+      tags:
+        - pet
+      summary: 查看单个宠物
+      description: 根据id获取单个宠物信息
+      operationId: fetchPet
+      parameters:
+        - name: id
+          in: path
+          description: 宠物id
+          required: true
+          explode: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: 根据id获取宠物对象正确返回
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: 参数传入错误
+        '500':
+          description: 服务器内部错误
+    put:
+      tags:
+        - pet
+      summary: 更新修改单个宠物
+      description: 根据id修改单个宠物信息
+      operationId: updatePet
+      parameters:
+        - name: id
+          in: path
+          description: 宠物id
+          required: true
+          explode: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+      responses:
+        '200':
+          description: 根据id修改宠物对象正确返回修改后的宠物对象
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: 参数传入错误
+        '500':
+          description: 服务器内部错误
+    delete:
+      tags:
+        - pet
+      summary: 删除单个宠物
+      description: 根据id删除单个宠物信息
+      operationId: deletePet
+      parameters:
+        - name: id
+          in: path
+          description: 宠物id
+          required: true
+          explode: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: 根据id删除单个宠物后正确返回
+        '500':
+          description: 服务器内部错误
+components:
+  schemas:
+    PagePet:
+      type: object
+      properties:
+        number:
+          type: number
+        numberOfElements:
+          type: number
+        totalElements:
+          description: 总共数据
+          type: number
+        totalPages:
+          type: number
+          description: 总共页数
+        size:
+          type: number
+          description:  每页条数
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/Pet'
+    Owner:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - address
+      properties:
+        firstName:
+          description:  姓
+          type: string
+        lastName:
+          type: string
+          description: 名字
+        address:
+          type: string
+          description: 详细地址
+        city:
+          type: string
+        telephone:
+          type: string
+          description: 电话
+    PetType:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    Pet:
+      type: object
+      required:
+        - name
+        - type
+        - owner
+      properties:
+        name:
+          type: string
+        birthDate:
+          type: string
+          format: date
+        type:
+          $ref: '#/components/schemas/PetType'
+        owner:
+          $ref: '#/components/schemas/Owner'
+        visits:
+          type: array
+          items:
+            $ref: '#/components/schemas/Visit'
+    Vet:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+    Visit:
+      type: object
+      required:
+        - name
+        - type
+        - owner
+      properties:
+        date:
+          type: string
+          format: date-time
+        vet:
+          $ref: '#/components/schemas/Vet'
+        pet:
+          $ref: '#/components/schemas/Pet'
+        description:
+          type: string
+  responses:
+    Problem:
+      description: error occurred - see status code and problem object for more information.
+      content:
+        'application/problem+json':
+          schema:
+            $ref: 'https://opensource.zalando.com/problem/schema.yaml#/Problem'

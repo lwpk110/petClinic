@@ -1,0 +1,26 @@
+get:
+  tags:
+    - pet
+  summary: 宠物分页
+  description: 通过参数 宠物类型，宠物名称进行记录分页查询
+  operationId: pagePets
+  parameters:
+    - name: typeId
+      in: query
+      description: 宠物类型id
+      required: false
+      explode: true
+      schema:
+        type: integer
+        format: int32
+  responses:
+    '200':
+      description: 宠物分页返回分页对象
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PagePet'
+    '400':
+      description: 参数传入错误
+    '500':
+      description: 服务器内部错误
