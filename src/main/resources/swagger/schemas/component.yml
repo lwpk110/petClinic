@@ -1,22 +1,48 @@
+PagePet:
+  type: object
+  properties:
+    number:
+      type: number
+    numberOfElements:
+      type: number
+    totalElements:
+      description: 总共数据
+      type: number
+    totalPages:
+      type: number
+      description: 总共页数
+    size:
+      type: number
+      description:  每页条数
+    content:
+      type: array
+      items:
+        $ref: '#/Pet'
 Owner:
   type: object
+  description: 宠物主人
   required:
     - firstName
     - lastName
     - address
   properties:
     firstName:
+      description:  姓
       type: string
     lastName:
       type: string
+      description: 名字
     address:
       type: string
+      description: 详细地址
     city:
       type: string
     telephone:
       type: string
+      description: 电话
 PetType:
   type: object
+  description: 宠物类型
   required:
     - name
   properties:
@@ -31,17 +57,19 @@ Pet:
   properties:
     name:
       type: string
+      description: 名字
     birthDate:
       type: string
       format: date
+      description: 出生日期
     type:
-      $ref: '#/components/schemas/PetType'
+      $ref: '#/PetType'
     owner:
-      $ref: '#/components/schemas/Owner'
+      $ref: '#/Owner'
     visits:
       type: array
       items:
-        $ref: '#/components/schemas/Visit'
+        $ref: '#/Visit'
 Vet:
   type: object
   required:
@@ -60,8 +88,8 @@ Visit:
       type: string
       format: date-time
     vet:
-      $ref: '#/components/schemas/Vet'
+      $ref: '#/Vet'
     pet:
-      $ref: '#/components/schemas/Pet'
+      $ref: '#/Pet'
     description:
       type: string

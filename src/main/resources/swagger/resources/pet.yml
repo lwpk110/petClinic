@@ -1,0 +1,77 @@
+get:
+  tags:
+    - pet
+  summary: 查看单个宠物
+  description: 根据id获取单个宠物信息
+  operationId: fetchPet
+  parameters:
+    - name: id
+      in: path
+      description: 宠物id
+      required: true
+      explode: true
+      schema:
+        type: integer
+        format: int32
+  responses:
+    '200':
+      description: 根据id获取宠物对象正确返回
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/component.yml#/Pet'
+    '400':
+      description: 参数传入错误
+    '500':
+      description: 服务器内部错误
+put:
+  tags:
+    - pet
+  summary: 更新修改单个宠物
+  description: 根据id修改单个宠物信息
+  operationId: updatePet
+  parameters:
+    - name: id
+      in: path
+      description: 宠物id
+      required: true
+      explode: true
+      schema:
+        type: integer
+        format: int32
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/component.yml#/Pet'
+  responses:
+    '200':
+      description: 根据id修改宠物对象正确返回修改后的宠物对象
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/component.yml#/Pet'
+    '400':
+      description: 参数传入错误
+    '500':
+      description: 服务器内部错误
+delete:
+  tags:
+    - pet
+  summary: 删除单个宠物
+  description: 根据id删除单个宠物信息
+  operationId: deletePet
+  parameters:
+    - name: id
+      in: path
+      description: 宠物id
+      required: true
+      explode: true
+      schema:
+        type: integer
+        format: int32
+  responses:
+    '204':
+      description: 根据id删除单个宠物后正确返回
+    '500':
+      description: 服务器内部错误

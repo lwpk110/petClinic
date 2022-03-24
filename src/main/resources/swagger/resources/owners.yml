@@ -1,18 +1,24 @@
 get:
   tags:
-    - pet
-  summary: 宠物分页
-  description: 通过参数 宠物类型，宠物名称进行记录分页查询
-  operationId: pagePets
+    - owner
+  summary: 宠物主人分页
+  description: 宠物主人分页查询
+  operationId: pageOwners
   parameters:
-    - name: typeId
+    - name: firstName
       in: query
-      description: 宠物类型id
+      description: 姓
       required: false
       explode: true
       schema:
-        type: integer
-        format: int32
+        type: string
+    - name: lastName
+      in: query
+      description: 名字
+      required: false
+      explode: true
+      schema:
+        type: string
   responses:
     '200':
       description: 宠物分页返回分页对象
