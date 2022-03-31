@@ -20,6 +20,13 @@ get:
         application/json:
           schema:
             $ref: '../schemas/component.yml#/Pet'
+          examples:
+            successExample:
+              summary: '调用成功'
+              description: '调用成功,返回单个对象'
+              value: {"name":"王二狗"}
+            refExample:
+              $ref: '../examples/getPet.yml'
     '400':
       description: 参数传入错误
     '500':

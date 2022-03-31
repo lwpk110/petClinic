@@ -247,4 +247,68 @@ components:                                                                 #<.>
 
 == 编写指南
 
-idea 下载
+=== 组织结构实践：
+
+[source,txt]
+----
+swagger
+├───parameters              #<.>
+│   ├───path                #<.>
+│   └───query               #<.>
+├───resources               #<.>
+├───responses               #<.>
+├───schemas                 #<.>
+└───openapi.yml             #<.>
+----
+<.> `query`,`path` 参数包;
+<.> `path` 参数组件包；
+<.> `query` 参数组件包；
+<.> api路由参数包；
+<.> api 返回参数包；
+<.> model, dto 可重复使用组件包
+<.> api 规范入口；
+
+
+=== 编写工具
+
+idea + OpenAPI (Swagger) Editor + OpenAPI Specification + Endpoint UI codeGen
+
+*  `OpenAPI (Swagger) Editor` - swagger api 规范 编写
+** 支持 OpenAPI 的 2.x 和 3.x 版本。
+** 支持 YAML 和 JSON 格式。
+** 使用 OpenAPI JSON 模式进行验证。
+** 大纲视图
+** 转到 $refs 的定义
+** 智能感知
+** 添加路径、操作、组件、安全性的代码片段
+** 支持流行的 OpenAPI 文档生成器：SwaggerUI 和 ReDoc。
+
+* OpenAPI Specification
+** OpenAPI 3.0 和 Swagger 2.0 版本。
+** YAML 和 JSON 文件格式。
+**通过 JSON 模式进行验证。
+** URL 的导航、完成和重命名重构。
+** 使用 Swagger Codegen 和 OpenAPI Generator 生成代码。
+** 在规范编辑器中集成 Swagger UI。
+** OpenAPI 文件的结构视图。
+** 通过 URL 或 Swagger Hub 进行远程连接api规范。
+
+* `Endpoint UI codeGen`
+** spring controller 生存 open api 规范；
+** 支持http测试；
+** 扫描所有api路由；
+
+=== 预览工具
+
+目前有以下两种实现 api 预览::
+* swagger UI
+* idea
+
+swagger Ui
+
+
+=== mock服务器：
+
+. 通过example 生成 - swaggerHub(收费);
+. 通过 faker.js 搭建 mock server。
+

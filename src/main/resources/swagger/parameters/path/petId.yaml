@@ -1,0 +1,8 @@
+name: id
+in: path
+description: 宠物id
+required: true
+explode: true
+schema:
+  type: integer
+  format: int32

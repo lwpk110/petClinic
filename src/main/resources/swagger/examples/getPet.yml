@@ -1,0 +1,27 @@
+summary: '调用成功-ref'
+description: '调用成功,返回单个对象'
+value: |
+    {
+      "name": "王二狗",
+      "birthDate": "2022-03-30",
+      "type": {
+        "name": "狗子"
+      },
+      "owner": {
+        "firstName": "王",
+        "lastName": "子",
+        "address": "浦东南路2162",
+        "city": "上海",
+        "telephone": "15927325623"
+      },
+      "visits": [
+        {
+          "date": "2022-03-30T13:13:32.457Z",
+          "vet": {
+            "name": "李医生"
+          },
+          "pet": "1",
+          "description": "蛀牙，拔了牙"
+        }
+      ]
+    }

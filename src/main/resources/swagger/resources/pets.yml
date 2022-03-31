@@ -24,3 +24,5 @@ get:
       description: 参数传入错误
     '500':
       description: 服务器内部错误
+post:
+
