@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/owners")
 public class OwnerController {
@@ -69,6 +70,7 @@ public class OwnerController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Owner> updateOwner(
 		 @RequestBodyPathVariable("id") Owner owner) {
+
 		service.save(owner);
 		return WebUtils.updateResponse(owner);
 	}

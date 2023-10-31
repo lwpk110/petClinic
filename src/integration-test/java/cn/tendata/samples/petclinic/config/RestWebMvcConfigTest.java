@@ -18,7 +18,7 @@ class RestWebMvcConfigTest {
 		dateTimeFormatter.withZone(ZoneId.of("UTC"));
 
 		LocalDateTimeSerializer localDateTimeSerializer = new LocalDateTimeSerializer(dateTimeFormatter);
-		localDateTimeSerializer.serialize();
+//		localDateTimeSerializer.serialize();
 
 		String actualFormat = dateTimeFormatter.format(date);
 		System.out.println(actualFormat);
